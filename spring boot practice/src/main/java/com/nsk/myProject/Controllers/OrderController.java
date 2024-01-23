@@ -13,10 +13,10 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PostMapping
-    public ResponseEntity<?> createOrder(@RequestBody Order order) {
+    @PostMapping("/{customerId}")
+    public ResponseEntity<?> createOrder(@PathVariable Long customerId, @RequestBody Order order) {
         try {
-            Order newOrder = orderService.createOrder(order);
+            Order newOrder = orderService.createOrder(order, customerId);
             return ResponseEntity.ok(newOrder);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

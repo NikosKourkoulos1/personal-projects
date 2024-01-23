@@ -2,6 +2,7 @@ package com.nsk.myProject.Model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
@@ -31,6 +32,7 @@ public class Order {
     
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "customer_id", nullable = false)
+    @JsonIgnore
     private Customer customer;
 
    public Long getId() {
@@ -66,7 +68,6 @@ public class Order {
    }
 
    public Order orElseThrow(Object object) {
-      // TODO Auto-generated method stub
       throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
    }
 }

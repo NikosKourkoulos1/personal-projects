@@ -52,7 +52,7 @@ public class Customer {
         this.orders = orders;
     }
 
-    // Add methods to add and remove orders
+    // methods to add and remove orders
     public void addOrder(Order order) {
         orders.add(order);
         order.setCustomer(this);
