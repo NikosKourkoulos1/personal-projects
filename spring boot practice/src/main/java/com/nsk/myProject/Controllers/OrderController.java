@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.nsk.myProject.Model.Customer;
 import com.nsk.myProject.Model.Order;
 import com.nsk.myProject.Services.OrderService;
 
@@ -43,6 +44,25 @@ public class OrderController {
         }
     }
 
-    // Additional CRUD methods for updating and deleting orders can be added here
+    @PutMapping("/{id}")
+    public ResponseEntity<Order> updateOrder(@PathVariable Long id, @RequestBody Order orderDetails) {
+        try {
+            Order updatedordOrder = orderService.updateOrder(id, orderDetails);
+            return ResponseEntity.ok(updatedordOrder);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }    
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteOrder(@PathVariable Long id) {
+        try {
+            orderService.deleteOrder(id);
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
 

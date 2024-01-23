@@ -16,7 +16,6 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final CustomerRepository customerRepository;
 
-    @Autowired
     public OrderService(OrderRepository orderRepository, CustomerRepository customerRepository) {
         this.orderRepository = orderRepository;
         this.customerRepository = customerRepository;
@@ -41,6 +40,23 @@ public class OrderService {
 
     public List<Order> getAllOrders() {
         return (List<Order>) orderRepository.findAll();
+    }
+
+    public Order updateOrder(Long id, Order orderDetails) {
+        Order existingOrder = orderRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        existingOrder.setName(orderDetails.getName());
+        existingOrder.setDate(orderDetails.getDate());
+        return orderRepository.save(existingOrder);
+    }
+
+    public void deleteOrder(Long orderId) {
+        // Check if the order exists
+        Order existingOrder = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        orderRepository.delete(existingOrder);
     }
 
 }
