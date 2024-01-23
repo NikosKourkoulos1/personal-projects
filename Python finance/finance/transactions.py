@@ -129,7 +129,7 @@ def sell():
                 break
         if all_quantities_zero:
             flash("You don't own any stocks to sell")
-            return redirect("/sell")
+            return redirect("/")
         else:
             return render_template("sell.html", holdings=holdings)
     elif request.method == "POST":
@@ -149,7 +149,7 @@ def sell():
         # check if input is valid
         if quantity_to_sell <= 0 or quantity_to_sell > int(owned[0]["quantity"]):
             flash("invalid quantity to sell")
-            return redirect("/sell")
+            return redirect("/")
 
         # get number of wned stocks with this name
         stock_data = db.execute(
