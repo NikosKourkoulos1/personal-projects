@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Withdraw Cash
+{% endblock %}
+
+{% block main %}
+    <div class="container mt-5">
+        <h2 class="mb-4">Withdraw Cash</h2>
+        <form action="/withdraw_cash" method="post" style="max-width: 300px; margin: auto;">
+            <div class="form-group">
+                <label for="cash_amount">Enter Withdrawal Amount:</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" class="form-control" id="cash_amount" name="cash_amount" placeholder="0.00" min="1" step="1" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Withdraw</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <form action="/register" method="post">
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="username" name="username" placeholder="Username" type="text">
+        </div>
+        <div class="mb-3">
+            <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password">
+            <div id="passwordRequirements" class="text-muted"></div>
+        </div>
+        <div class="mb-3">
+            <input class="form-control mx-auto w-auto" id="confirmation" name="confirmation" placeholder="Confirm Password" type="password">
+        </div>
+        <button class="btn btn-primary" type="submit">Sign Up</button>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        // Function to update password requirements message
+        function updatePasswordRequirements() {
+            var password = $("#password").val();
+            var requirements = [];
+
+            // Check for at least one uppercase letter, one lowercase letter, one digit, and one special character
+            if (!/[A-Z]/.test(password)) requirements.push("at least one uppercase letter");
+            if (!/[a-z]/.test(password)) requirements.push("at least one lowercase letter");
+            if (!/\d/.test(password)) requirements.push("at least one digit");
+            if (!/[!@#$%^&*(),.?\":{}|<>]/.test(password)) requirements.push("at least one special character");
+
+            // Display the requirements message
+            if (requirements.length === 0) {
+                $("#passwordRequirements").text("");
+            } else {
+                $("#passwordRequirements").text("Password must contain " + requirements.join(", "));
+            }
+        }
+
+        // Attach the updatePasswordRequirements function to the input event of the password field
+        $("#password").on("input", updatePasswordRequirements);
+    </script>
+{% endblock %}
+

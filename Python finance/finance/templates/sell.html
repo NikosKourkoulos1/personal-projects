@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sell
+{% endblock %}
+
+{% block main %}
+    <div class="container mt-5">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-4">
+                <form action="/sell" method="post" onsubmit="return validateForm()">
+                    <div class="form-group">
+                        <label for="selected_stock">Select Stock to Sell:</label>
+                        <select class="selectpicker form-control" id="symbol" name="symbol" data-live-search="true">
+                            <option disabled selected>Choose stock</option>
+                            {% for stock in holdings %}
+                                {% if stock["quantity"] > 0 %}
+                                    <option>{{ stock["name"] }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Amount:</label>
+                        <input type="number" class="form-control" id="shares" name="shares" placeholder="Enter amount" min="1" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg" id="sell" name="sell">Sell</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        function validateForm() {
+            var selectedStock = document.getElementById("selected_stock").value;
+            if (selectedStock === "Choose stock") {
+                alert("Please select a stock.");
+                return false; // prevent form submission
+            }
+            return true; // allow form submission
+        }
+    </script>
+{% endblock %}
+

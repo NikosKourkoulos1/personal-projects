@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+    <div class="container mt-5">
+        <h2 class="mb-4">Portfolio Overview</h2>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Symbol</th>
+                    <th scope="col">Shares</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in owned_stocks %}
+                    {% if stock["stock_quantity"] > 0 %}
+                        <tr>
+                            <td>{{ stock["stock_name"] }}</td>
+                            <td>{{ stock["stock_quantity"] }}</td>
+                            <td>{{ stock["current_price"] | usd }}</td>
+                            <td>{{ stock["total_value"] | usd }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container mt-3">
+        <h4 class="mb-3">Portfolio Summary</h4>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>Cash Balance:</td>
+                    <td>{{ user_cash | usd }}</td>
+                </tr>
+                <tr>
+                    <td>Total Portfolio Value:</td>
+                    <td>{{ total_balance | usd }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container mt-3 d-flex justify-content-center">
+        <form action="/add_cash" method="get">
+            <button class="btn btn-primary" type="submit">Add Cash</button>
+        </form>
+        <form action="/withdraw_cash" method="get">
+            <button class="btn btn-danger" type="submit">Withdraw Cash</button>
+        </form>
+    </div>
+
+{% endblock %}
+
+
+
